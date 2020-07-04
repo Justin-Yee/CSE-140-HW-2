@@ -3,12 +3,12 @@
 
 int main()
 {
- char strvar[100];
+ char strvar[100] = "";
 
   printf ("Hello World!\n");
 
  fgets (strvar, 100, stdin);
 
-  printf (strvar);
+  printf ("%s",strvar);
   return 0;
 }
