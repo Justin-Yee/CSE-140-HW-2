@@ -13,58 +13,58 @@ Justin Yee
 
 //Global Variable
 char parsedArr[6][10]; //Holds the original string as segments
-char foundArr[6][6];  //Holds the decimal value of the string
+char foundArr[6][10];  //Holds the decimal value of the string
 char binStr[34];       //Holds the binary as a string
 
 //Functions
 
 bool FindOp () { // Determines which OpCode it is
 //return bool, 1 is successful, 0 is fail
-if(strcmp(parsedArr[0],"add")){
+if(strcmp(parsedArr[0],"add") == 0) {
         strcpy(foundArr[5], "32");
         strcpy(binStr,"100000");
         return 1;}
-    else if( strcmp(parsedArr[0], "addu")) {
+    else if( strcmp(parsedArr[0], "addu")  == 0) {
         strcpy(foundArr[5], "33");
         strcpy(binStr, "100001");
         return 1;}
-    else if( strcmp(parsedArr[0], "and")) {
+    else if( strcmp(parsedArr[0], "and")  == 0) {
         strcpy(foundArr[5], "36");
         strcpy(binStr, "100100");
         return 1;}
-    else if( strcmp(parsedArr[0], "jr")) {
+    else if( strcmp(parsedArr[0], "jr")  == 0) {
         strcpy(foundArr[5], "8");
         strcpy(binStr, "001000");
         return 1;}
-    else if( strcmp(parsedArr[0], "nor")) {
+    else if( strcmp(parsedArr[0], "nor")  == 0) {
         strcpy(foundArr[5], "39");
         strcpy(binStr, "100111");
         return 1;}
-    else if( strcmp(parsedArr[0], "or")) {
+    else if( strcmp(parsedArr[0], "or")  == 0) {
         strcpy(foundArr[5], "37");
         strcpy(binStr, "100101");
         return 1;}
-    else if( strcmp(parsedArr[0], "slt")) {
+    else if( strcmp(parsedArr[0], "slt")  == 0) {
         strcpy(foundArr[5], "42");
         strcpy(binStr, "101010");
         return 1;}
-    else if( strcmp(parsedArr[0], "sltu")) {
+    else if( strcmp(parsedArr[0], "sltu")  == 0) {
         strcpy(foundArr[5], "43");
         strcpy(binStr, "101011");
         return 1;}
-    else if( strcmp(parsedArr[0], "sll")) {
+    else if( strcmp(parsedArr[0], "sll")  == 0) {
         strcpy(foundArr[5], "0");
         strcpy(binStr, "000000");
         return 1;}
-    else if( strcmp(parsedArr[0], "srl")) {
+    else if( strcmp(parsedArr[0], "srl")  == 0) {
         strcpy(foundArr[5], "2");
         strcpy(binStr, "000010");
         return 1;}
-    else if( strcmp(parsedArr[0], "sub")) {
+    else if( strcmp(parsedArr[0], "sub")  == 0) {
         strcpy(foundArr[5], "34");
         strcpy(binStr, "100010");
         return 1;}
-    else if( strcmp(parsedArr[0], "subu")) {
+    else if( strcmp(parsedArr[0], "subu")  == 0) {
         strcpy(foundArr[5], "35");
         strcpy(binStr, "100011");
         return 1;}
@@ -80,17 +80,17 @@ int FindR(int i){ // Determines the registers
  char regName; //Contains letter values of registar
  char regNum;  //Contains the numbers
 
- if( strcmp(parsedArr[i], "zero")) {
+ if( strcmp(parsedArr[i], "zero")  == 0) {
         return 0;} 
-    else if( strcmp(parsedArr[i], "at")) {
+    else if( strcmp(parsedArr[i], "at")  == 0) {
         return 1;}
-    else if( strcmp(parsedArr[i], "gp")) {
+    else if( strcmp(parsedArr[i], "gp")  == 0) {
         return 28;}
-    else if( strcmp(parsedArr[i], "sp")) {
+    else if( strcmp(parsedArr[i], "sp")  == 0) {
         return 29;}
-    else if( strcmp(parsedArr[i], "fp")) {
+    else if( strcmp(parsedArr[i], "fp")  == 0) {
         return 30;}
-    else if( strcmp(parsedArr[i], "ra")) {
+    else if( strcmp(parsedArr[i], "ra")  == 0) {
         return 31; }
     
 // regName = parsedArr[i][0]; 
@@ -98,7 +98,7 @@ int FindR(int i){ // Determines the registers
 // regNum = parsedArr[i][1];
  strcpy(regNum, parsedArr[i][1]);
 
-if(strcmp(regName, "v")) {
+if(strcmp(regName, "v")  == 0) {
         if( 0 < regNum < 1)
             return 2+regNum;
         }
@@ -130,8 +130,6 @@ void Parser (char str[]){ //Breaks string into an array and sotre string segment
 char temp[100] = " ";
 char  *ptr;
 int i = 0;
-
-printf ( "Parse0\n");
 
 strcat(temp, str);
 
@@ -179,18 +177,16 @@ printf ( "Machine Code: %s", binStr );
 
 int main(){
 char input[99]; //takes in user input
+char temp[99];
 
 printf ( "Please provide an R-type instruction. \n" );
 
 //Input String
 //fgets (input, 99, stdin);
-strcpy(input, "addi s1 t2 zero");
+strcpy(input, "add s1 t2 zero");
 
-printf ( "Parse: %s\n", input );
 Parser(input);//separate string based on space bar
 
-
-printf ( "FindOp: %s\n",parsedArr[0]);
 //Pick which variable and print 
 if(FindOp() == 0){ //returns Funct in Dec and in Binary
 	printf ( "Bad Input: Op" );
@@ -198,10 +194,14 @@ if(FindOp() == 0){ //returns Funct in Dec and in Binary
 	}
 
 //Shamt(); //append bits to binary
-strcat("00000", binStr);
-
+strcpy(temp,"00000");
+strcat(temp, binStr);
+strcpy(binStr,temp);
 //FindR(); //called 3 times for rs, rt, and rd
 
+printf ( "bits:%s \n",binStr);
+
+printf ( "parsedArr[2]: %s \n", parsedArr[2]);
 //foundArr[2] = FindR(2);//rs
 strcat(foundArr[2], FindR(2));
 if( strcmp(foundArr[2], "-1") == 0){ //returns Funct in Dec and in Binary
