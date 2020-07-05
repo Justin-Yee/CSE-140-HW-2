@@ -12,9 +12,9 @@ Justin Yee
 #include <stdbool.h>
 
 //Global Variable
-char parsedArr[6][6]; //Holds the original string as segments
+char parsedArr[6][10]; //Holds the original string as segments
 char foundArr[6][6];  //Holds the decimal value of the string
-char binStr[32];       //Holds the binary as a string
+char binStr[34];       //Holds the binary as a string
 
 //Functions
 
@@ -135,7 +135,7 @@ printf ( "Parse0\n");
 
 strcat(temp, str);
 
-ptr = strtok(*str," "); //Find first use of spacebar
+ptr = strtok(temp," "); //Find first use of spacebar
 
 while( ptr != NULL){ //Go through string str and store each piece in strArr
     strncpy(parsedArr[i], ptr, 6);
@@ -183,7 +183,8 @@ char input[99]; //takes in user input
 printf ( "Please provide an R-type instruction. \n" );
 
 //Input String
-fgets (input, 99, stdin);
+//fgets (input, 99, stdin);
+strcpy(input, "addi s1 t2 zero");
 
 printf ( "Parse: %s\n", input );
 Parser(input);//separate string based on space bar
