@@ -2,3 +2,6 @@ test
 test.o
 MachineCode.o
 MachineCode
+GPATH
+GRTAGS
+GTAGS

@@ -76,9 +76,9 @@ if(strcmp(parsedArr[0],"add") == 0) {
 }
 
 int FindR(int i){ // Determines the registers
-
- char regName; //Contains letter values of registar
- char regNum;  //Contains the numbers
+//const char*
+ char *regName; //Contains letter values of registar
+ int regNum;  //Contains the numbers
 
  if( strcmp(parsedArr[i], "zero")  == 0) {
         return 0;} 
@@ -92,32 +92,38 @@ int FindR(int i){ // Determines the registers
         return 30;}
     else if( strcmp(parsedArr[i], "ra")  == 0) {
         return 31; }
-    
-// regName = parsedArr[i][0]; 
- strcpy(regName, parsedArr[i][0]);
-// regNum = parsedArr[i][1];
- strcpy(regNum, parsedArr[i][1]);
+
+  printf ( "test\n");
+  
+regName = "t"; 
+//strncpy(regName, parsedArr[i][0],1);
+//strcat(regName, "\0");
+//regNum = parsedArr[i][1];
+
+regNum = parsedArr[i][1];
+regNum = regNum - 48;
+printf ( "FindR:%d | %s | %d \n",regNum, regName,parsedArr[i][0]);
 
 if(strcmp(regName, "v")  == 0) {
         if( 0 < regNum < 1)
             return 2+regNum;
         }
-    else if(strcmp(regName, "a"))
+    else if(strcmp(regName, "a") == 0)
         if( 0< regNum <3 ){
             return 4+regNum;
         }
-    else if(strcmp(regName, "t"))
+    else if(strcmp(regName, "t") == 0)
         if( 0 < regNum < 7){
             return 8 + regNum;
         }
-    else if(strcmp(regName, "s"))
+    else if(strcmp(regName, "s") == 0)
         if( 0 < regNum < 7){
             return 16+ regNum;
         }
-    else if(strcmp(regName, "t"))
+    else if(strcmp(regName, "t") == 0)
         if( 8 < regNum < 9)
             return 24 + 25;
-    else if(strcmp(regName, "k"))
+    else if(strcmp(regName, "k") == 0)
         if( 0< regNum< 1){
             return 26 + regNum;
         }
@@ -142,7 +148,7 @@ while( ptr != NULL){ //Go through string str and store each piece in strArr
 	}
 return;
 }
-
+/*
 char IntToBinary(int num,int size){
 int bi = 1;
 
@@ -174,7 +180,7 @@ printf ( "Shamt: 0" );
 printf ( "Funct: %s", foundArr[5]);
 printf ( "Machine Code: %s", binStr );
 }
-
+*/
 int main(){
 char input[99]; //takes in user input
 char temp[99];
@@ -199,15 +205,15 @@ strcat(temp, binStr);
 strcpy(binStr,temp);
 //FindR(); //called 3 times for rs, rt, and rd
 
-printf ( "bits:%s \n",binStr);
-
 printf ( "parsedArr[2]: %s \n", parsedArr[2]);
 //foundArr[2] = FindR(2);//rs
-strcat(foundArr[2], FindR(2));
+sprintf(foundArr[2], "%d", FindR(2));
+printf ( "bits:%s \n",binStr);
 if( strcmp(foundArr[2], "-1") == 0){ //returns Funct in Dec and in Binary
 	printf ( "Bad Input: rs" );
 	return 0;
 	}
+printf ( "foundArr[2]: R%s \n", foundArr[2]);
 
 // foundArr[3] = FindR(3);//rt
 // if(foundArr[3] == "-1"){ //returns Funct in Dec and in Binary
@@ -227,10 +233,10 @@ if( strcmp(foundArr[2], "-1") == 0){ //returns Funct in Dec and in Binary
 // strcat( IntToBin( foundArr[2],5 ), binStr);//rs
 
 //OpCode to Binary
-strcat("00000", binStr);
+//strcat("00000", binStr);
 
 //Print Funct
-PrintOut();
+//PrintOut();
 
 return 0;
 }
