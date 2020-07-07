@@ -188,39 +188,39 @@ void Parser(char str[])
     }
     return;
 }
-/*
-char IntToBinary(int num,int size){
-int bi = 1;
 
-while(num >= bi*2){
-	bi = bi*2;
+void IntToBinary(int num,int size){
+int i = 1;
+while(num >= i*2){
+	i = i*2;
 }
-char bina[50];
 while(num > 0){
-	if(num >= bi){
-		num -= bi;
-		strcat(1, bina);//bina += "1");
+	if(num >= i){
+		num -= i;
+		strcat(binStr, "1");//bina += "1");
 	} else {
-		strcat(0, bina);//bina += "0");
+		strcat(binStr, "0");//bina += "0");
 	}
-	bi = bi / 2;
+	i = i / 2;
 }
-while(sizeof(bina) < size){
-	strcat(0, bina); //bina = "0" + bina;
-}
-return  bina;
+while(sizeof(binStr) < size){
+	strcat(binStr,"0"); //bina = "0" + bina;
 }
 
+return;
+}
+/*
 void PrintOut() {//Prints out Instruction
 printf ( "operation: %s", parsedArr[0]);
-printf ( "Rs: %s", foundArr[1]);
-printf ( "Rt: %s", foundArr[2] );
-printf ( "Rd: %s", foundArr[3]);
+printf ( "Rs: R%s", foundArr[1]);
+printf ( "Rt: R%s", foundArr[2] );
+printf ( "Rd: R%s", foundArr[3]);
 printf ( "Shamt: 0" );
 printf ( "Funct: %s", foundArr[5]);
 printf ( "Machine Code: %s", binStr );
 }
 */
+
 int main()
 {
     char input[99]; //takes in user input
@@ -247,34 +247,39 @@ int main()
     strcpy(binStr, temp);
     //FindR(); //called 3 times for rs, rt, and rd
 
-    printf("parsedArr[2]: %s \n", parsedArr[2]);
     //foundArr[2] = FindR(2);//rs
     sprintf(foundArr[2], "%d", FindR(2));
-    printf("bits:%s \n", binStr);
     if (strcmp(foundArr[2], "-1") == 0)
     { //returns Funct in Dec and in Binary
         printf("Bad Input: rs");
         return 0;
     }
-    printf("foundArr[2]: R%s \n", foundArr[2]);
-
+    
     // foundArr[3] = FindR(3);//rt
-    // if(foundArr[3] == "-1"){ //returns Funct in Dec and in Binary
-    // 	printf ( "Bad Input: rt" );
-    // 	return 0;
-    // 	}
+    sprintf(foundArr[3], "%d", FindR(3));
+    if(foundArr[3] == "-1"){
+    	printf ( "Bad Input: rt" );
+    	return 0;
+    	}
 
     // foundArr[4] = FindR(4);//rd
-    // if(foundArr[4] == "-1"){ //returns Funct in Dec and in Binary
-    // 	printf ( "Bad Input: rd" );
-    // 	return 0;
-    // 	}
+    sprintf(foundArr[3], "%d", FindR(4));
+    if(foundArr[4] == "-1"){
+    	printf ( "Bad Input: rd" );
+    	return 0;
+    	}
 
+    printf("bits:%s \n", binStr);
     //IntToBin( integer ,length ); //returns a string to represent binary
-    // strcat(IntToBin( foundArr[4],5 ), binStr);//rd
-    // strcat(IntToBin( foundArr[3],5 ), binStr);//rt
-    // strcat( IntToBin( foundArr[2],5 ), binStr);//rs
+    IntToBinary( (int)foundArr[4][0],5 );//rd
+    printf("rd: %s bits:%s  & %d\n",parsedArr[3], binStr,(int)foundArr[4][0]);
+    //IntToBinary( (int)foundArr[3] - 48,5 );//rt
+    printf("rt bits:%s \n", binStr);
+    //IntToBinary( (int)foundArr[2] - 48,5 );//rs
+    printf("rs bits:%s \n", binStr);
 
+    printf("bits:%s \n", binStr);
+    
     //OpCode to Binary
     //strcat("00000", binStr);
 
