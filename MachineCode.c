@@ -191,20 +191,26 @@ void Parser(char str[])
 
 void IntToBinary(int num,int size){
 int i = 1;
+int j = 0;
 while(num >= i*2){
 	i = i*2;
 }
+        printf ("out num: %d\n",num);
 while(num > 0){
 	if(num >= i){
-		num -= i;
+		num = num - i;
 		strcat(binStr, "1");//bina += "1");
+        printf ("adding bit\n");
 	} else {
 		strcat(binStr, "0");//bina += "0");
-	}
+        printf ("adding bit\n");
+    }
 	i = i / 2;
+    j++;
 }
-while(sizeof(binStr) < size){
+while(j < size){
 	strcat(binStr,"0"); //bina = "0" + bina;
+    j++;
 }
 
 return;
@@ -273,7 +279,7 @@ int main()
     //IntToBin( integer ,length ); //returns a string to represent binary
     IntToBinary( (int)foundArr[4][0],5 );//rd
     printf("rd: %s bits:%s  & %d\n",parsedArr[3], binStr,(int)foundArr[4][0]);
-    //IntToBinary( (int)foundArr[3] - 48,5 );//rt
+    IntToBinary( (int)foundArr[3][0],5 );//rt
     printf("rt bits:%s \n", binStr);
     //IntToBinary( (int)foundArr[2] - 48,5 );//rs
     printf("rs bits:%s \n", binStr);
