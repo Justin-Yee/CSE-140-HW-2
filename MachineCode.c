@@ -105,6 +105,8 @@ int FindR(int i)
     char *regName; //Contains letter values of registar
     int regNum;    //Contains the numbers
     
+    //printf ("%s %d %d\n",parsedArr[i], strcmp(parsedArr[i], "ra"), strcmp(parsedArr[i], "zero"));
+
     if (strcmp(parsedArr[i], "zero") == 0)
     {
         return 0;
@@ -178,12 +180,12 @@ void Parser(char str[])
     
     strcat(temp, str);
     
-    ptr = strtok(temp, " "); //Find first use of spacebar
+    ptr = strtok(temp, " ,\n"); //Find first use of spacebar
     
     while (ptr != NULL)
     { //Go through string str and store each piece in strArr
         strncpy(parsedArr[i], ptr, 6);
-        ptr = strtok(NULL, " ");
+        ptr = strtok(NULL, " ,\n");
         i++;
     }
     return;
@@ -267,13 +269,8 @@ int main()
     //FindR(); //called 3 times for rs, rt, and rd
     
     //foundArr[1] = FindR(1);//rs
-    if(strlen(parsedArr[1]) > 0){
+
     sprintf(foundArr[1], "%d", FindR(1));
-    }
-    else{
-        strcpy(foundArr[1],"0");
-        //strcpy(parsedArr[1],"0");
-    }
     if (strcmp(foundArr[1], "-1") == 0)
     { //returns Funct in Dec and in Binary
         printf("Bad Input: rs");
