@@ -248,8 +248,8 @@ int main()
     printf("Please provide an R-type instruction. \n");
     
     //Input String
-    //fgets (input, 99, stdin);
-    strcpy(input, "jr ra");
+    fgets (input, 99, stdin);
+    //strcpy(input, "jr ra");
     
     Parser(input); //separate string based on space bar
     
