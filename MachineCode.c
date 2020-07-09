@@ -194,47 +194,34 @@ void IntToBinary(int num,int size){
     int j = 0;
     int debug = num;
     char temp[32];
-    while(num > i){
-        if(i == 0){
-            i++;}
-        else{
-            i = i*2;}
+
+    for(j = 0; j < size; j++){
+        if(i == 0)
+            i++;
+        else
+            i = i*2;
     }
-    strcpy(binStr, "|");
+    j = 0;
+
     strcpy(temp, "");
-    //strcat(temp, binStr);
-    //strcpy(binStr, temp);
-    printf("Start, %d\n",num);
-    
-    while(num > 0){
+
+    while(num > 0 && j < size){
         if(num >= i){
             num = num - i;
             strcat(temp, "1");
-            strcat(temp, binStr);
-            strcpy(binStr, temp);
-            strcpy(temp, "");
-            printf("Add 1, Num:%d >= i: %d\n",num,i);
+
            // strcat(binStr, "1");//bina += "1");
         } 
         else {
             strcat(temp, "0");
-            strcat(temp, binStr);
-            strcpy(binStr, temp);
-            strcpy(temp, "");
-            printf("Add 0, Num:%d < i: %d\n",num,i);
            // strcat(binStr, "0");//bina += "0");
         }
+
         i = i / 2;
-        //printf("num2:%d, bits: %s\n", num,temp);
         j++;
     }
     while(j < size){
         strcat(temp, "0");
-        strcat(temp, binStr);
-        strcpy(binStr, temp);
-        strcpy(temp, "");
-        //printf("End Add 0, %d i: %d\n",num,i);
-       // strcat(binStr,"0"); //bina = "0" + bina;
         j++;
     }
     printf("Num: %d bits:%s | temp:%s \n",debug, binStr,temp);
@@ -309,11 +296,11 @@ int main()
 
     // IntToBinary(atoi(foundArr[2]),5 );//rs
 
-    // int j = 0;
-    // for(j = 0; j < 10;j++ ){
-    //     IntToBinary(j,5);
-    // }
-    IntToBinary(2,5);
+    int j = 0;
+    for(j = 0; j < 32;j++ ){
+        IntToBinary(j,5);
+    }
+    //IntToBinary(2,5);
 
    // printf("bits:%s \n", binStr);
     
