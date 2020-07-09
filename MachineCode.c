@@ -209,7 +209,6 @@ void IntToBinary(int num,int size){
         if(num >= i){
             num = num - i;
             strcat(temp, "1");
-
            // strcat(binStr, "1");//bina += "1");
         } 
         else {
@@ -220,25 +219,26 @@ void IntToBinary(int num,int size){
         i = i / 2;
         j++;
     }
+
     while(j < size){
         strcat(temp, "0");
         j++;
     }
-    printf("Num: %d bits:%s | temp:%s \n",debug, binStr,temp);
+    
+    strcat(temp, binStr);
+    strcpy(binStr, temp);
     return;
 }
 
- void PrintOut() {//Prints out Instruction
- printf ( "operation: %s \n", parsedArr[0]);
-     printf ( "Rs: %s (R%s) \n", parsedArr[1], foundArr[1]);
- printf ( "Rt: %s (R%s) \n", parsedArr[2], foundArr[2] );
- printf ( "Rd: %s (R%s) \n", parsedArr[3], foundArr[3]);
- printf ( "Shamt: 0 \n" );
- printf ( "Funct: %s \n", foundArr[5]);
- printf ( "Machine Code: %s \n", binStr );
- }
-
- 
+void PrintOut() {//Prints out Instruction
+    printf ( "operation: %s \n", parsedArr[0]);
+    printf ( "Rs: %s (R%s) \n", parsedArr[1], foundArr[1]);
+    printf ( "Rt: %s (R%s) \n", parsedArr[2], foundArr[2] );
+    printf ( "Rd: %s (R%s) \n", parsedArr[3], foundArr[3]);
+    printf ( "Shamt: 0 \n" );
+    printf ( "Funct: %s \n", foundArr[5]);
+    printf ( "Machine Code: %s \n", binStr );
+}
 
 int main()
 {
@@ -249,7 +249,7 @@ int main()
     
     //Input String
     //fgets (input, 99, stdin);
-    strcpy(input, "add s1 t0 t1");
+    strcpy(input, "jr ra");
     
     Parser(input); //separate string based on space bar
     
@@ -275,44 +275,45 @@ int main()
     }
     
     // foundArr[2] = FindR(2);//rt
+    if(strlen(parsedArr[2]) > 0){
     sprintf(foundArr[2], "%d", FindR(2));
+    }
+    else{
+        strcpy(foundArr[2],"0");
+        strcpy(parsedArr[2],"0");
+    }
     if(strcmp(foundArr[2], "-1") == 0){
         printf ( "Bad Input: rt" );
         return 0;
     }
   
     // foundArr[3] = FindR(3);//rd
+        if(strlen(parsedArr[3]) > 0){
     sprintf(foundArr[3], "%d", FindR(3));
-    if(strcmp(foundArr[4], "-1") == 0){
+    }
+    else{
+        strcpy(foundArr[3],"0");
+        strcpy(parsedArr[3],"0");
+    }
+    if(strcmp(foundArr[3], "-1") == 0){
         printf ( "Bad Input: rd" );
         return 0;
     }
     
-
     //IntToBin( integer ,length ); //returns a string to represent binary
-    // IntToBinary(atoi(foundArr[1]),5 );//rd
+    IntToBinary(atoi(foundArr[1]),5 );//rd
 
-    // IntToBinary(atoi(foundArr[3]),5 );//rt
+    IntToBinary(atoi(foundArr[3]),5 );//rt
 
-    // IntToBinary(atoi(foundArr[2]),5 );//rs
+    IntToBinary(atoi(foundArr[2]),5 );//rs
 
-    int j = 0;
-    for(j = 0; j < 32;j++ ){
-        IntToBinary(j,5);
-    }
-    //IntToBinary(2,5);
-
-   // printf("bits:%s \n", binStr);
-    
     //OpCode to Binary
-    strcpy(temp, "000000|");
+    strcpy(temp, "000000");//strcat("00000", binStr);
     strcat(temp, binStr);
     strcpy(binStr, temp);
-    //strcat("00000", binStr);
     
     //Print Funct
-    //PrintOut();
-    
+    PrintOut();
     
     return 0;
 }
