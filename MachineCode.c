@@ -190,37 +190,54 @@ void Parser(char str[])
 }
 
 void IntToBinary(int num,int size){
-    int i = 1;
+    int i = 0;
     int j = 0;
+    int debug = num;
     char temp[32];
-    while(num >= i*2){
-        i = i*2;
+    while(num > i){
+        if(i == 0){
+            i++;}
+        else{
+            i = i*2;}
     }
-    printf("bits:%s \n", temp);   // printf ("out num: %d\n",num);
+    strcpy(binStr, "|");
+    strcpy(temp, "");
+    //strcat(temp, binStr);
+    //strcpy(binStr, temp);
+    printf("Start, %d\n",num);
+    
     while(num > 0){
         if(num >= i){
             num = num - i;
-            strcpy(temp, "1");
+            strcat(temp, "1");
             strcat(temp, binStr);
             strcpy(binStr, temp);
+            strcpy(temp, "");
+            printf("Add 1, Num:%d >= i: %d\n",num,i);
            // strcat(binStr, "1");//bina += "1");
-        } else {
-            strcpy(temp, "0");
+        } 
+        else {
+            strcat(temp, "0");
             strcat(temp, binStr);
             strcpy(binStr, temp);
+            strcpy(temp, "");
+            printf("Add 0, Num:%d < i: %d\n",num,i);
            // strcat(binStr, "0");//bina += "0");
         }
         i = i / 2;
+        //printf("num2:%d, bits: %s\n", num,temp);
         j++;
     }
     while(j < size){
-        strcpy(temp, "0");
+        strcat(temp, "0");
         strcat(temp, binStr);
         strcpy(binStr, temp);
+        strcpy(temp, "");
+        //printf("End Add 0, %d i: %d\n",num,i);
        // strcat(binStr,"0"); //bina = "0" + bina;
         j++;
     }
-    printf("bits:%s \n", temp);
+    printf("Num: %d bits:%s | temp:%s \n",debug, binStr,temp);
     return;
 }
 
@@ -284,25 +301,30 @@ int main()
         return 0;
     }
     
-  //  printf("bits:%s \n", binStr);
+
     //IntToBin( integer ,length ); //returns a string to represent binary
-    IntToBinary(atoi(foundArr[3]),5 );//rd
-   // printf("rd: %s bits:%s  & %d\n",parsedArr[2], binStr,(int)foundArr[3][0]);
-    IntToBinary(atoi(foundArr[2]),5 );//rt
-   // printf("rt bits:%s \n", binStr);
-    IntToBinary(atoi(foundArr[1]),5 );//rs
-   // printf("rs bits:%s \n", binStr);
-    
+    // IntToBinary(atoi(foundArr[1]),5 );//rd
+
+    // IntToBinary(atoi(foundArr[3]),5 );//rt
+
+    // IntToBinary(atoi(foundArr[2]),5 );//rs
+
+    // int j = 0;
+    // for(j = 0; j < 10;j++ ){
+    //     IntToBinary(j,5);
+    // }
+    IntToBinary(2,5);
+
    // printf("bits:%s \n", binStr);
     
     //OpCode to Binary
-    strcpy(temp, "000000");
+    strcpy(temp, "000000|");
     strcat(temp, binStr);
     strcpy(binStr, temp);
     //strcat("00000", binStr);
     
     //Print Funct
-    PrintOut();
+    //PrintOut();
     
     
     return 0;
