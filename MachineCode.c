@@ -137,12 +137,12 @@ int FindR(int i)
     
     if (strncmp(regName, "v", 1) == 0)
     {
-        if (0 < regNum && regNum < 1)
+        if (0 <= regNum && regNum <= 1)
             return 2 + regNum;
     }
     else if (strncmp(regName, "a", 1) == 0)
     {
-        if (0 < regNum && regNum < 3)
+        if (0 <= regNum && regNum <= 3)
             return 4 + regNum;
     }
     else if (strncmp(regName, "t", 1) == 0)
@@ -152,17 +152,17 @@ int FindR(int i)
     }
     else if (strncmp(regName, "s", 1) == 0)
     {
-        if (0 < regNum && regNum < 7)
+        if (0 <= regNum && regNum <= 7)
             return 16 + regNum;
     }
     else if (strncmp(regName, "t", 1) == 0)
     {
-        if (8 < regNum && regNum < 9)
+        if (8 <= regNum && regNum <= 9)
             return 24 + regNum;
     }
     else if (strncmp(regName, "k", 1) == 0)
     {
-        if (0 < regNum && regNum < 1)
+        if (0 <= regNum && regNum <= 1)
             return 26 + regNum;
     }
     
@@ -267,7 +267,13 @@ int main()
     //FindR(); //called 3 times for rs, rt, and rd
     
     //foundArr[1] = FindR(1);//rs
+    if(strlen(parsedArr[1]) > 0){
     sprintf(foundArr[1], "%d", FindR(1));
+    }
+    else{
+        strcpy(foundArr[1],"0");
+        //strcpy(parsedArr[1],"0");
+    }
     if (strcmp(foundArr[1], "-1") == 0)
     { //returns Funct in Dec and in Binary
         printf("Bad Input: rs");
